@@ -3,7 +3,7 @@ import SignInForm from '@/components/SignInForm'
 import SignInWithProviders, {
   type SignInWithProvidersProps,
 } from '@/components/SignInWithProviders'
-import SingleFormPage from '@/components/SingleFormPage'
+import SingleFormWrapper from '@/components/SingleFormWrapper'
 import { pagePath } from '@/router'
 import { Anchor, Divider, Text } from '@mantine/core'
 import { Link } from 'react-router-dom'
@@ -22,7 +22,7 @@ const providers: SignInWithProvidersProps['providers'] = [
 const SignInPage = () => {
   return (
     <Page title="Sign in">
-      <SingleFormPage title="Sign in">
+      <SingleFormWrapper title="Sign in">
         <SignInForm />
         <Divider label="Or" labelPosition="center" />
         <SignInWithProviders providers={providers} />
@@ -32,7 +32,7 @@ const SignInPage = () => {
             Sign up
           </Anchor>
         </Text>
-      </SingleFormPage>
+      </SingleFormWrapper>
     </Page>
   )
 }

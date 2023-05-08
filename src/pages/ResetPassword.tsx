@@ -1,13 +1,13 @@
 import Page from '@/components/Page'
 import ResetPasswordForm from '@/components/ResetPasswordForm'
-import SingleFormPage from '@/components/SingleFormPage'
+import SingleFormWrapper from '@/components/SingleFormWrapper'
 
 const ResetPasswordPage = () => {
   return (
     <Page title="Forgot password?">
-      <SingleFormPage title="Reset password">
+      <SingleFormWrapper title="Reset password">
         <ResetPasswordForm />
-      </SingleFormPage>
+      </SingleFormWrapper>
     </Page>
   )
 }

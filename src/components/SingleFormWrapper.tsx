@@ -1,8 +1,8 @@
 import { Center, Flex, Paper, Title } from '@mantine/core'
 
-type SingleFormPageProps = React.PropsWithChildren<{ title: string }>
+type SingleFormWrapperProps = React.PropsWithChildren<{ title: string }>
 
-const SingleFormPage = ({ children, title }: SingleFormPageProps) => {
+const SingleFormWrapper = ({ children, title }: SingleFormWrapperProps) => {
   return (
     <Center pos="relative" mih="100dvh" p="lg">
       <Paper w={420} maw="100%" m="auto" p="lg" withBorder>
@@ -15,4 +15,4 @@ const SingleFormPage = ({ children, title }: SingleFormPageProps) => {
   )
 }
 
-export default SingleFormPage
+export default SingleFormWrapper
