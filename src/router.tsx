@@ -4,6 +4,7 @@ import RootRoute from '@/components/RootRoute'
 import AllNotesPage from '@/pages/AllNotes'
 import EditNotePage from '@/pages/EditNote'
 import NotFoundPage from '@/pages/NotFound'
+import ResetPasswordPage from '@/pages/ResetPassword'
 import SignInPage from '@/pages/SignIn'
 import SignUpPage from '@/pages/SignUp'
 import {
@@ -17,6 +18,7 @@ export const pagePath = {
   note: (id: string) => `/note/${id}`,
   signIn: '/signin',
   signUp: '/signup',
+  resetPassword: '/reset-password',
 }
 
 const router = createBrowserRouter(
@@ -30,6 +32,7 @@ const router = createBrowserRouter(
       <Route element={<AuthRoute />}>
         <Route path={pagePath.signIn} element={<SignInPage />} />
         <Route path={pagePath.signUp} element={<SignUpPage />} />
+        <Route path={pagePath.resetPassword} element={<ResetPasswordPage />} />
       </Route>
     </Route>
   )
