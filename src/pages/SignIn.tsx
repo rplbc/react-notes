@@ -4,7 +4,7 @@ import SignInWithProviders, {
   type SignInWithProvidersProps,
 } from '@/components/SignInWithProviders'
 import SingleFormWrapper from '@/components/SingleFormWrapper'
-import { pagePath } from '@/router'
+import { pagePath } from '@/routes'
 import { Anchor, Divider, Text } from '@mantine/core'
 import { Link } from 'react-router-dom'
 

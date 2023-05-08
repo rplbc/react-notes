@@ -1,6 +1,6 @@
 import { useLoadingContext } from '@/contexts/Loading'
 import { signInWithCredentials } from '@/firebase/auth'
-import { pagePath } from '@/router'
+import { pagePath } from '@/routes'
 import {
   Anchor,
   Button,

@@ -7,19 +7,12 @@ import NotFoundPage from '@/pages/NotFound'
 import ResetPasswordPage from '@/pages/ResetPassword'
 import SignInPage from '@/pages/SignIn'
 import SignUpPage from '@/pages/SignUp'
+import { pagePath } from '@/routes'
 import {
   Route,
   createBrowserRouter,
   createRoutesFromElements,
 } from 'react-router-dom'
-
-export const pagePath = {
-  home: '/',
-  note: (id: string) => `/note/${id}`,
-  signIn: '/signin',
-  signUp: '/signup',
-  resetPassword: '/reset-password',
-}
 
 const router = createBrowserRouter(
   createRoutesFromElements(

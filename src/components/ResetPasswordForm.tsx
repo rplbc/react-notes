@@ -1,6 +1,6 @@
 import { useLoadingContext } from '@/contexts/Loading'
 import { sendPasswordResetEmail } from '@/firebase/auth'
-import { pagePath } from '@/router'
+import { pagePath } from '@/routes'
 import { Anchor, Button, Flex, Group, Text, TextInput } from '@mantine/core'
 import { useForm, zodResolver } from '@mantine/form'
 import { FirebaseError } from 'firebase/app'
