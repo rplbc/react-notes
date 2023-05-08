@@ -1,8 +1,18 @@
 import { signInWithCredentials } from '@/firebase/auth'
-import { Button, Flex, PasswordInput, Text, TextInput } from '@mantine/core'
+import { pagePath } from '@/router'
+import {
+  Anchor,
+  Button,
+  Flex,
+  Group,
+  PasswordInput,
+  Text,
+  TextInput,
+} from '@mantine/core'
 import { useForm, zodResolver } from '@mantine/form'
 import { FirebaseError } from 'firebase/app'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { z } from 'zod'
 
 const validationSchema = z.object({
@@ -60,9 +70,12 @@ const SignInForm = () => {
           </Text>
         )}
 
-        <Button type="submit" mt="sm">
-          Sign in
-        </Button>
+        <Group position="apart" mt="sm">
+          <Anchor component={Link} to={pagePath.resetPassword} size="sm">
+            Forgot password?
+          </Anchor>
+          <Button type="submit">Sign in</Button>
+        </Group>
       </Flex>
     </form>
   )
