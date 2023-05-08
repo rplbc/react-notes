@@ -30,9 +30,10 @@ const AppHeader = () => {
               <Group spacing="xs">
                 <Avatar
                   src={user.photoURL}
-                  alt={user.displayName || undefined}
+                  color="indigo"
+                  variant="filled"
                   radius="xl"
-                  size={40}
+                  size={36}
                 />
                 <div>
                   <Text fw="600" size="sm" lh="1">

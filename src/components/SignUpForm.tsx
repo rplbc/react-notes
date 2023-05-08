@@ -9,7 +9,6 @@ import { z } from 'zod'
 
 const validationSchema = z
   .object({
-    displayName: z.string().nonempty('Required'),
     email: z.string().email(),
     password: z
       .string()
@@ -23,7 +22,6 @@ const validationSchema = z
   })
 
 const initialValues: z.infer<typeof validationSchema> = {
-  displayName: '',
   email: '',
   password: '',
   confirmPassword: '',
@@ -46,8 +44,7 @@ const SignUpForm = () => {
     setIsLoading(true)
 
     try {
-      const res = await signUpWithCredentials(email, password)
-      console.log(res)
+      await signUpWithCredentials(email, password)
     } catch (err) {
       console.log(err)
       setError(
@@ -61,14 +58,6 @@ const SignUpForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <Flex direction="column" gap="xs">
-        <TextInput
-          label="Display name"
-          placeholder="E.g. your full name"
-          withAsterisk
-          disabled={isLoading}
-          {...form.getInputProps('displayName')}
-        />
-
         <TextInput
           label="Email"
           placeholder="your@mail.com"
