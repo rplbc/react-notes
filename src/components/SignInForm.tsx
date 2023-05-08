@@ -1,3 +1,4 @@
+import { useLoadingContext } from '@/contexts/Loading'
 import { signInWithCredentials } from '@/firebase/auth'
 import { pagePath } from '@/router'
 import {
@@ -27,6 +28,7 @@ const initialValues: z.infer<typeof validationSchema> = {
 
 const SignInForm = () => {
   const [error, setError] = useState('')
+  const { isLoading, setIsLoading } = useLoadingContext()
 
   const form = useForm({
     initialValues,
@@ -36,6 +38,7 @@ const SignInForm = () => {
 
   const handleSubmit = form.onSubmit(async ({ email, password }) => {
     setError('')
+    setIsLoading(true)
 
     try {
       const res = await signInWithCredentials(email, password)
@@ -46,6 +49,8 @@ const SignInForm = () => {
         err instanceof FirebaseError ? err.message : 'Something went wrong'
       )
     }
+
+    setIsLoading(false)
   })
 
   return (
@@ -55,12 +60,14 @@ const SignInForm = () => {
           label="Email"
           placeholder="your@mail.com"
           inputMode="email"
+          disabled={isLoading}
           {...form.getInputProps('email')}
         />
 
         <PasswordInput
           label="Password"
           placeholder="Your password"
+          disabled={isLoading}
           {...form.getInputProps('password')}
         />
 
@@ -74,7 +81,9 @@ const SignInForm = () => {
           <Anchor component={Link} to={pagePath.resetPassword} size="sm">
             Forgot password?
           </Anchor>
-          <Button type="submit">Sign in</Button>
+          <Button type="submit" disabled={isLoading}>
+            Sign in
+          </Button>
         </Group>
       </Flex>
     </form>

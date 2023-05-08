@@ -1,3 +1,4 @@
+import { useLoadingContext } from '@/contexts/Loading'
 import { sendPasswordResetEmail } from '@/firebase/auth'
 import { pagePath } from '@/router'
 import { Anchor, Button, Flex, Group, Text, TextInput } from '@mantine/core'
@@ -18,6 +19,7 @@ const initialValues: z.infer<typeof validationSchema> = {
 const ResetPasswordForm = () => {
   const [error, setError] = useState('')
   const [responseMessage, setResponseMessage] = useState('')
+  const { isLoading, setIsLoading } = useLoadingContext()
 
   const form = useForm({
     initialValues,
@@ -28,6 +30,7 @@ const ResetPasswordForm = () => {
   const handleSubmit = form.onSubmit(async ({ email }) => {
     setError('')
     setResponseMessage('')
+    setIsLoading(true)
 
     try {
       await sendPasswordResetEmail(email)
@@ -39,6 +42,8 @@ const ResetPasswordForm = () => {
         err instanceof FirebaseError ? err.message : 'Something went wrong'
       )
     }
+
+    setIsLoading(false)
   })
 
   return (
@@ -48,6 +53,7 @@ const ResetPasswordForm = () => {
           label="Email"
           placeholder="your@mail.com"
           inputMode="email"
+          disabled={isLoading}
           {...form.getInputProps('email')}
         />
 
@@ -67,7 +73,9 @@ const ResetPasswordForm = () => {
           <Anchor component={Link} to={pagePath.signIn} size="sm">
             ← Go back
           </Anchor>
-          <Button type="submit">Send mail</Button>
+          <Button type="submit" disabled={isLoading}>
+            Send mail
+          </Button>
         </Group>
       </Flex>
     </form>

@@ -1,3 +1,4 @@
+import { useLoadingContext } from '@/contexts/Loading'
 import { signUpWithCredentials } from '@/firebase/auth'
 import { Button, Flex, PasswordInput, Text, TextInput } from '@mantine/core'
 import { useForm, zodResolver } from '@mantine/form'
@@ -30,6 +31,7 @@ const initialValues: z.infer<typeof validationSchema> = {
 
 const SignUpForm = () => {
   const [error, setError] = useState('')
+  const { isLoading, setIsLoading } = useLoadingContext()
   const [isPasswordVisible, { toggle: toggleIsPasswordVisible }] =
     useDisclosure(false)
 
@@ -41,6 +43,7 @@ const SignUpForm = () => {
 
   const handleSubmit = form.onSubmit(async ({ email, password }) => {
     setError('')
+    setIsLoading(true)
 
     try {
       const res = await signUpWithCredentials(email, password)
@@ -51,6 +54,8 @@ const SignUpForm = () => {
         err instanceof FirebaseError ? err.message : 'Something went wrong'
       )
     }
+
+    setIsLoading(false)
   })
 
   return (
@@ -60,6 +65,7 @@ const SignUpForm = () => {
           label="Display name"
           placeholder="E.g. your full name"
           withAsterisk
+          disabled={isLoading}
           {...form.getInputProps('displayName')}
         />
 
@@ -68,6 +74,7 @@ const SignUpForm = () => {
           placeholder="your@mail.com"
           inputMode="email"
           withAsterisk
+          disabled={isLoading}
           {...form.getInputProps('email')}
         />
 
@@ -77,6 +84,7 @@ const SignUpForm = () => {
           withAsterisk
           visible={isPasswordVisible}
           onVisibilityChange={toggleIsPasswordVisible}
+          disabled={isLoading}
           {...form.getInputProps('password')}
         />
 
@@ -86,6 +94,7 @@ const SignUpForm = () => {
           withAsterisk
           visible={isPasswordVisible}
           onVisibilityChange={toggleIsPasswordVisible}
+          disabled={isLoading}
           {...form.getInputProps('confirmPassword')}
         />
 
@@ -95,7 +104,7 @@ const SignUpForm = () => {
           </Text>
         )}
 
-        <Button type="submit" mt="sm">
+        <Button type="submit" mt="sm" disabled={isLoading}>
           Sign up
         </Button>
       </Flex>
