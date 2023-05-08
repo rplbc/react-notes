@@ -1,4 +1,4 @@
-import { LoadingContext } from '@/contexts/loading'
+import { LoadingContext } from '@/contexts/Loading'
 import { useAppSelector } from '@/store/hooks'
 import { AUTH_AUTHORIZED_STATUS } from '@/store/slices/user'
 import { useState } from 'react'
