@@ -33,11 +33,12 @@ const SignInWithProviders = ({ providers }: SignInWithProvidersProps) => {
   )
 
   return (
-    <Flex direction="column" gap="xs">
+    <Flex gap="xs" wrap="wrap">
       {providers.map(({ provider, label }) => (
         <Button
           key={label}
-          variant="outline"
+          sx={{ flex: '1 0 160px' }}
+          variant="default"
           onClick={() => signIn(provider)}
           disabled={isLoading}
         >

@@ -11,11 +11,11 @@ import { Link } from 'react-router-dom'
 const providers: SignInWithProvidersProps['providers'] = [
   {
     provider: 'google',
-    label: 'Continue with Google',
+    label: 'Google',
   },
   {
     provider: 'github',
-    label: 'Continue with GitHub',
+    label: 'GitHub',
   },
 ]
 
@@ -24,7 +24,7 @@ const SignInPage = () => {
     <Page title="Sign in">
       <SingleFormWrapper title="Sign in">
         <SignInForm />
-        <Divider label="Or" labelPosition="center" />
+        <Divider label="Or sign in with" labelPosition="center" />
         <SignInWithProviders providers={providers} />
         <Text color="dimmed" size="sm" align="center">
           Do not have an account yet?{' '}

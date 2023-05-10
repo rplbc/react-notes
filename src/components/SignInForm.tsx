@@ -61,6 +61,7 @@ const SignInForm = () => {
           placeholder="your@mail.com"
           inputMode="email"
           disabled={isLoading}
+          withAsterisk
           {...form.getInputProps('email')}
         />
 
@@ -68,6 +69,7 @@ const SignInForm = () => {
           label="Password"
           placeholder="Your password"
           disabled={isLoading}
+          withAsterisk
           {...form.getInputProps('password')}
         />
 

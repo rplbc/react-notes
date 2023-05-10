@@ -51,9 +51,11 @@ const ResetPasswordForm = () => {
       <Flex direction="column" gap="xs">
         <TextInput
           label="Email"
+          description="Enter your email to get a reset link"
           placeholder="your@mail.com"
           inputMode="email"
           disabled={isLoading}
+          withAsterisk
           {...form.getInputProps('email')}
         />
 
@@ -74,7 +76,7 @@ const ResetPasswordForm = () => {
             ← Go back
           </Anchor>
           <Button type="submit" disabled={isLoading}>
-            Send mail
+            Reset password
           </Button>
         </Group>
       </Flex>
