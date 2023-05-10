@@ -3,5 +3,8 @@ import { updateProfile } from 'firebase/auth'
 
 export const setDisplayName = (displayName: string | null) => {
   if (!auth.currentUser) throw new Error('Unauthorized')
-  return updateProfile(auth.currentUser, { displayName })
+  return updateProfile(auth.currentUser, {
+    displayName,
+    photoURL: auth.currentUser.photoURL,
+  })
 }
