@@ -46,7 +46,7 @@ const ProfileForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      onBlur={() => {
+      onFocus={() => {
         setError('')
         setResponseMessage('')
       }}
@@ -70,7 +70,10 @@ const ProfileForm = () => {
           </Text>
         )}
         <Group mt="sm">
-          <Button type="submit" disabled={isLoading}>
+          <Button
+            type="submit"
+            disabled={isLoading || displayName === form.values.displayName}
+          >
             Save
           </Button>
         </Group>
