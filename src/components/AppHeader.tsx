@@ -10,7 +10,12 @@ import {
   Text,
   UnstyledButton,
 } from '@mantine/core'
-import { IconChevronDown, IconLogout, IconUser } from '@tabler/icons-react'
+import {
+  IconChevronDown,
+  IconLogout,
+  IconNote,
+  IconUser,
+} from '@tabler/icons-react'
 import { Link } from 'react-router-dom'
 
 const AppHeader = () => {
@@ -50,6 +55,13 @@ const AppHeader = () => {
             </UnstyledButton>
           </Menu.Target>
           <Menu.Dropdown>
+            <Menu.Item
+              component={Link}
+              to={pagePath.home}
+              icon={<IconNote size="1rem" />}
+            >
+              Notes
+            </Menu.Item>
             <Menu.Item
               component={Link}
               to={pagePath.profile}
