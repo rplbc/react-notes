@@ -1,6 +1,13 @@
 import { auth, firestore } from '@/firebase'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { addDoc, collection, deleteDoc, doc, getDocs } from 'firebase/firestore'
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  setDoc,
+} from 'firebase/firestore'
 
 export type Note = {
   id: string
@@ -20,6 +27,22 @@ export const addNote = createAsyncThunk(
     )
 
     return { id: res.id, ...data }
+  }
+)
+
+export const updateNote = createAsyncThunk(
+  'notes/update',
+  async (note: Note) => {
+    if (!auth.currentUser) throw new Error('Unauthorized')
+
+    const { id, ...data } = note
+
+    const res = await setDoc(
+      doc(firestore, 'user', auth.currentUser.uid, 'note', id),
+      data
+    )
+
+    return res
   }
 )
 
@@ -55,6 +78,10 @@ export const notesSlice = createSlice({
     builder
       .addCase(getNotes.fulfilled, (_, action) => action.payload)
       .addCase(addNote.fulfilled, (state, action) => [action.payload, ...state])
+      .addCase(updateNote.fulfilled, (state, action) => {
+        console.log(action)
+        return state
+      })
       .addCase(removeNote.fulfilled, (state, action) =>
         state.filter((item) => item.id !== action.payload)
       )
