@@ -1,4 +1,5 @@
 import { signOut } from '@/firebase/auth'
+import { pagePath } from '@/routes'
 import { useAppSelector } from '@/store/hooks'
 import {
   Anchor,
@@ -9,6 +10,7 @@ import {
   Text,
   UnstyledButton,
 } from '@mantine/core'
+import { IconChevronDown, IconLogout, IconUser } from '@tabler/icons-react'
 import { Link } from 'react-router-dom'
 
 const AppHeader = () => {
@@ -24,7 +26,7 @@ const AppHeader = () => {
         <Anchor component={Link} to="/" size="xl" fw="700" unstyled>
           Notes
         </Anchor>
-        <Menu width={180} position="bottom-end" withinPortal withArrow>
+        <Menu width={240} position="bottom-end" withinPortal withArrow>
           <Menu.Target>
             <UnstyledButton>
               <Group spacing="xs">
@@ -43,11 +45,21 @@ const AppHeader = () => {
                     {user.email}
                   </Text>
                 </div>
+                <IconChevronDown size="1rem" stroke={1.5} />
               </Group>
             </UnstyledButton>
           </Menu.Target>
           <Menu.Dropdown>
-            <Menu.Item onClick={signOut}>Logout</Menu.Item>
+            <Menu.Item
+              component={Link}
+              to={pagePath.profile}
+              icon={<IconUser size="1rem" />}
+            >
+              Profile
+            </Menu.Item>
+            <Menu.Item onClick={signOut} icon={<IconLogout size="1rem" />}>
+              Logout
+            </Menu.Item>
           </Menu.Dropdown>
         </Menu>
       </Group>
