@@ -1,6 +1,9 @@
+import ResponseMessage from '@/components/ResponseMessage'
+import { useLoadingContext } from '@/contexts/Loading'
 import { useAppDispatch } from '@/store/hooks'
 import { addNote } from '@/store/slices/notes'
-import { Button, Group, Modal, Text, TextInput } from '@mantine/core'
+import { type ResponseMsg } from '@/utils'
+import { Button, Group, Modal, TextInput } from '@mantine/core'
 import { useForm, zodResolver } from '@mantine/form'
 import { useDisclosure } from '@mantine/hooks'
 import { IconPlus } from '@tabler/icons-react'
@@ -16,9 +19,8 @@ type NewNoteFormValues = z.infer<typeof validationSchema>
 const AddNoteForm = () => {
   const [opened, { open, close }] = useDisclosure(false)
   const dispatch = useAppDispatch()
-
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState('')
+  const { isLoading, setIsLoading } = useLoadingContext()
+  const [res, setRes] = useState<ResponseMsg | null>(null)
 
   const form = useForm<NewNoteFormValues>({
     initialValues: {
@@ -29,15 +31,15 @@ const AddNoteForm = () => {
   })
 
   const handleSubmit = form.onSubmit(async ({ title }) => {
+    setRes(null)
     setIsLoading(true)
-    setError('')
 
     try {
       await dispatch(addNote({ title, content: '' })).unwrap()
       close()
     } catch (err) {
       console.log(err)
-      setError('Something went wrong, please try again')
+      setRes({ status: 'error', msg: 'Something went wrong, please try again' })
     }
 
     setIsLoading(false)
@@ -49,7 +51,7 @@ const AddNoteForm = () => {
         opened={opened || isLoading}
         onClose={close}
         title="Add new note"
-        onBlur={() => setError('')}
+        onBlur={() => setRes(null)}
         closeOnClickOutside={!isLoading}
         withCloseButton={false}
         centered
@@ -62,11 +64,7 @@ const AddNoteForm = () => {
             disabled={isLoading}
             {...form.getInputProps('title')}
           />
-          {error && (
-            <Text size="sm" color="red">
-              {error}
-            </Text>
-          )}
+          {res && <ResponseMessage {...res} />}
           <Group position="right" mt={20}>
             <Button variant="white" onClick={close} disabled={isLoading}>
               Cancel

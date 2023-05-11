@@ -13,6 +13,7 @@ export const authErrors = {
   'auth/user-not-found': 'User not found',
   'auth/account-exists-with-different-credential':
     'Account exists with different credential',
+  'auth/wrong-password': 'Invalid password',
 }
 
 export const getAuthErrorMsg = (err: unknown): string => {
