@@ -8,7 +8,7 @@ import ProfilePage from '@/pages/Profile'
 import ResetPasswordPage from '@/pages/ResetPassword'
 import SignInPage from '@/pages/SignIn'
 import SignUpPage from '@/pages/SignUp'
-import { pagePath } from '@/routes'
+import { pagePath } from '@/utils'
 import {
   Route,
   createBrowserRouter,

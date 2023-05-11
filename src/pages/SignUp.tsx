@@ -1,7 +1,7 @@
 import Page from '@/components/Page'
 import SignUpForm from '@/components/SignUpForm'
 import SingleFormWrapper from '@/components/SingleFormWrapper'
-import { pagePath } from '@/routes'
+import { pagePath } from '@/utils'
 import { Anchor, Text } from '@mantine/core'
 import { Link } from 'react-router-dom'
 

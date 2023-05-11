@@ -2,8 +2,7 @@ import ErrorMessage from '@/components/ErrorMessage'
 import SuccessMessage from '@/components/SuccessMessage'
 import { useLoadingContext } from '@/contexts/Loading'
 import { sendPasswordResetEmail } from '@/firebase/auth'
-import { pagePath } from '@/routes'
-import { getAuthErrorMsg } from '@/utils'
+import { pagePath } from '@/utils'
 import { Anchor, Button, Flex, Group, TextInput } from '@mantine/core'
 import { useForm, zodResolver } from '@mantine/form'
 import { useState } from 'react'
@@ -36,7 +35,6 @@ const ResetPasswordForm = () => {
 
     try {
       await sendPasswordResetEmail(email)
-      setResponseMessage('Password reset email sent')
       form.reset()
     } catch (err) {
       console.log(err)

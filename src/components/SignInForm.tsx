@@ -1,8 +1,7 @@
 import ErrorMessage from '@/components/ErrorMessage'
 import { useLoadingContext } from '@/contexts/Loading'
 import { signInWithCredentials } from '@/firebase/auth'
-import { pagePath } from '@/routes'
-import { getAuthErrorMsg } from '@/utils'
+import { getAuthErrorMsg, pagePath } from '@/utils'
 import {
   Anchor,
   Button,

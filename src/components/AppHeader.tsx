@@ -1,6 +1,6 @@
 import { signOut } from '@/firebase/auth'
-import { pagePath } from '@/routes'
 import { useAppSelector } from '@/store/hooks'
+import { pagePath } from '@/utils'
 import {
   Anchor,
   Avatar,

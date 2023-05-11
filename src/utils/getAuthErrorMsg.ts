@@ -11,6 +11,8 @@ export const authErrors = {
   'auth/invalid-photo-url': 'Invalid photo url',
   'auth/operation-not-allowed': 'Not allowed',
   'auth/user-not-found': 'User not found',
+  'auth/account-exists-with-different-credential':
+    'Account exists with different credential',
 }
 
 export const getAuthErrorMsg = (err: unknown): string => {

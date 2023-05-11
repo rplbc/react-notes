@@ -1,6 +1,6 @@
-import { pagePath } from '@/routes'
 import { useAppDispatch } from '@/store/hooks'
 import { removeNote } from '@/store/slices/notes'
+import { pagePath } from '@/utils'
 import { ActionIcon, Anchor, Card, Flex, Group, Title } from '@mantine/core'
 import { IconEdit, IconTrash } from '@tabler/icons-react'
 import { useState } from 'react'

@@ -1,7 +1,7 @@
 import NoteEditor from '@/components/NoteEditor'
 import Page from '@/components/Page'
-import { pagePath } from '@/routes'
 import { useAppSelector } from '@/store/hooks'
+import { pagePath } from '@/utils'
 import { Anchor, Button, Title } from '@mantine/core'
 import { Link, useParams } from 'react-router-dom'
 
@@ -21,7 +21,7 @@ const EditNotePage = () => {
       </Page>
     )
 
-  const { title, content } = note
+  const { title } = note
 
   return (
     <Page title={title}>
