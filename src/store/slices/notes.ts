@@ -79,10 +79,12 @@ export const notesSlice = createSlice({
     builder
       .addCase(getNotes.fulfilled, (_, action) => action.payload)
       .addCase(addNote.fulfilled, (state, action) => [action.payload, ...state])
-      .addCase(updateNote.fulfilled, (state, action) => {
-        console.log(action)
+      .addCase(updateNote.fulfilled, (state) => {
         return state
       })
+      .addCase(removeNote.fulfilled, (state, action) =>
+        state.filter((item) => item.id !== action.payload)
+      )
       .addCase(signOut.pending, () => initialState)
   },
 })
