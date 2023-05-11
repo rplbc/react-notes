@@ -2,7 +2,6 @@ import {
   GithubAuthProvider,
   GoogleAuthProvider,
   sendPasswordResetEmail as _sendPasswordResetEmail,
-  signOut as _signOut,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -24,8 +23,6 @@ export const signInWithCredentials = (email: string, password: string) =>
 
 export const signUpWithCredentials = (email: string, password: string) =>
   createUserWithEmailAndPassword(auth, email, password)
-
-export const signOut = () => _signOut(auth)
 
 export const sendPasswordResetEmail = (email: string) =>
   _sendPasswordResetEmail(auth, email)

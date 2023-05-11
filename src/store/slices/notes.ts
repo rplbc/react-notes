@@ -1,4 +1,5 @@
 import { auth, firestore } from '@/firebase'
+import { signOut } from '@/store/slices/user'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import {
   addDoc,
@@ -82,9 +83,7 @@ export const notesSlice = createSlice({
         console.log(action)
         return state
       })
-      .addCase(removeNote.fulfilled, (state, action) =>
-        state.filter((item) => item.id !== action.payload)
-      )
+      .addCase(signOut.pending, () => initialState)
   },
 })
 
