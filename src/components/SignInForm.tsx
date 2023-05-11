@@ -1,17 +1,17 @@
+import ErrorMessage from '@/components/ErrorMessage'
 import { useLoadingContext } from '@/contexts/Loading'
 import { signInWithCredentials } from '@/firebase/auth'
 import { pagePath } from '@/routes'
+import { getAuthErrorMsg } from '@/utils'
 import {
   Anchor,
   Button,
   Flex,
   Group,
   PasswordInput,
-  Text,
   TextInput,
 } from '@mantine/core'
 import { useForm, zodResolver } from '@mantine/form'
-import { FirebaseError } from 'firebase/app'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { z } from 'zod'
@@ -41,13 +41,10 @@ const SignInForm = () => {
     setIsLoading(true)
 
     try {
-      const res = await signInWithCredentials(email, password)
-      console.log(res)
+      await signInWithCredentials(email, password)
     } catch (err) {
       console.log(err)
-      setError(
-        err instanceof FirebaseError ? err.message : 'Something went wrong'
-      )
+      setError(getAuthErrorMsg(err))
     }
 
     setIsLoading(false)
@@ -61,6 +58,7 @@ const SignInForm = () => {
           placeholder="your@mail.com"
           inputMode="email"
           disabled={isLoading}
+          withAsterisk
           {...form.getInputProps('email')}
         />
 
@@ -68,14 +66,11 @@ const SignInForm = () => {
           label="Password"
           placeholder="Your password"
           disabled={isLoading}
+          withAsterisk
           {...form.getInputProps('password')}
         />
 
-        {error && (
-          <Text size="sm" color="red">
-            {error}
-          </Text>
-        )}
+        <ErrorMessage>{error}</ErrorMessage>
 
         <Group position="apart" mt="sm">
           <Anchor component={Link} to={pagePath.resetPassword} size="sm">

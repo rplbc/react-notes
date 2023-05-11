@@ -1,19 +1,37 @@
+import NoteEditor from '@/components/NoteEditor'
 import Page from '@/components/Page'
-import { useParams } from 'react-router-dom'
+import { pagePath } from '@/routes'
+import { useAppSelector } from '@/store/hooks'
+import { Anchor, Button, Title } from '@mantine/core'
+import { Link, useParams } from 'react-router-dom'
 
 const EditNotePage = () => {
   const { id } = useParams()
+  const note = useAppSelector((s) =>
+    s.notes.find(({ id: noteId }) => id === noteId)
+  )
 
-  if (!id)
+  if (!note)
     return (
-      <Page title={`Note ${id} not found`}>
-        <h1>Note {id} not found</h1>
+      <Page title={`Note not found`}>
+        <Title mb={30}>Note not found</Title>
+        <Button component={Link} to="/" replace>
+          ← Go back to home page
+        </Button>
       </Page>
     )
 
+  const { title, content } = note
+
   return (
-    <Page title={`Note ${id}`}>
-      <h1>Note {id}</h1>
+    <Page title={title}>
+      <Anchor component={Link} to={pagePath.home}>
+        ← Go back
+      </Anchor>
+      <Title mt={20} mb={30}>
+        {title}
+      </Title>
+      <NoteEditor {...note} />
     </Page>
   )
 }

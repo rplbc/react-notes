@@ -4,7 +4,7 @@ import SingleFormWrapper from '@/components/SingleFormWrapper'
 
 const ResetPasswordPage = () => {
   return (
-    <Page title="Forgot password?">
+    <Page title="Reset password">
       <SingleFormWrapper title="Reset password">
         <ResetPasswordForm />
       </SingleFormWrapper>

@@ -6,7 +6,7 @@ const Page = ({ title, children }: PageProps) => {
   const hook = typeof document !== 'undefined' ? useLayoutEffect : useEffect
 
   hook(() => {
-    document.title = title
+    document.title = `Notes - ${title}`
   }, [title])
 
   return <>{children}</>

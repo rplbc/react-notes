@@ -1,6 +1,7 @@
 import AppHeader from '@/components/AppHeader'
 import { useAppSelector } from '@/store/hooks'
 import { AUTH_AUTHORIZED_STATUS } from '@/store/slices/user'
+import { Container } from '@mantine/core'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 
 const ProtectedRoute = () => {
@@ -13,7 +14,9 @@ const ProtectedRoute = () => {
   return (
     <>
       <AppHeader />
-      <Outlet />
+      <Container size="lg" py={60} px={20}>
+        <Outlet />
+      </Container>
     </>
   )
 }
