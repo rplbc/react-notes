@@ -1,9 +1,10 @@
+import ErrorMessage from '@/components/ErrorMessage'
 import { useLoadingContext } from '@/contexts/Loading'
 import { signUpWithCredentials } from '@/firebase/auth'
-import { Button, Flex, PasswordInput, Text, TextInput } from '@mantine/core'
+import { getAuthErrorMsg } from '@/utils'
+import { Button, Flex, PasswordInput, TextInput } from '@mantine/core'
 import { useForm, zodResolver } from '@mantine/form'
 import { useDisclosure } from '@mantine/hooks'
-import { FirebaseError } from 'firebase/app'
 import { useState } from 'react'
 import { z } from 'zod'
 
@@ -47,9 +48,7 @@ const SignUpForm = () => {
       await signUpWithCredentials(email, password)
     } catch (err) {
       console.log(err)
-      setError(
-        err instanceof FirebaseError ? err.message : 'Something went wrong'
-      )
+      setError(getAuthErrorMsg(err))
     }
 
     setIsLoading(false)
@@ -87,11 +86,7 @@ const SignUpForm = () => {
           {...form.getInputProps('confirmPassword')}
         />
 
-        {error && (
-          <Text size="sm" color="red">
-            {error}
-          </Text>
-        )}
+        <ErrorMessage>{error}</ErrorMessage>
 
         <Button type="submit" mt="sm" disabled={isLoading}>
           Sign up

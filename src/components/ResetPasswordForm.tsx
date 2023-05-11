@@ -1,9 +1,11 @@
+import ErrorMessage from '@/components/ErrorMessage'
+import SuccessMessage from '@/components/SuccessMessage'
 import { useLoadingContext } from '@/contexts/Loading'
 import { sendPasswordResetEmail } from '@/firebase/auth'
 import { pagePath } from '@/routes'
-import { Anchor, Button, Flex, Group, Text, TextInput } from '@mantine/core'
+import { getAuthErrorMsg } from '@/utils'
+import { Anchor, Button, Flex, Group, TextInput } from '@mantine/core'
 import { useForm, zodResolver } from '@mantine/form'
-import { FirebaseError } from 'firebase/app'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { z } from 'zod'
@@ -38,9 +40,7 @@ const ResetPasswordForm = () => {
       form.reset()
     } catch (err) {
       console.log(err)
-      setError(
-        err instanceof FirebaseError ? err.message : 'Something went wrong'
-      )
+      setError(getAuthErrorMsg(err))
     }
 
     setIsLoading(false)
@@ -59,17 +59,8 @@ const ResetPasswordForm = () => {
           {...form.getInputProps('email')}
         />
 
-        {error && (
-          <Text size="sm" color="red">
-            {error}
-          </Text>
-        )}
-
-        {responseMessage && (
-          <Text size="sm" color="green">
-            {responseMessage}
-          </Text>
-        )}
+        <ErrorMessage>{error}</ErrorMessage>
+        <SuccessMessage>{responseMessage}</SuccessMessage>
 
         <Group position="apart" mt="sm">
           <Anchor component={Link} to={pagePath.signIn} size="sm">

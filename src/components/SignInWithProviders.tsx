@@ -1,7 +1,8 @@
+import ErrorMessage from '@/components/ErrorMessage'
 import { useLoadingContext } from '@/contexts/Loading'
 import { signInWithProvider, type AuthProviders } from '@/firebase/auth'
-import { Button, Flex, Text } from '@mantine/core'
-import { FirebaseError } from 'firebase/app'
+import { getAuthErrorMsg } from '@/utils'
+import { Button, Flex } from '@mantine/core'
 import { useCallback, useState } from 'react'
 
 export type SignInWithProvidersProps = {
@@ -18,13 +19,10 @@ const SignInWithProviders = ({ providers }: SignInWithProvidersProps) => {
       setIsLoading(true)
 
       try {
-        const res = await signInWithProvider(provider)
-        console.log(res)
+        await signInWithProvider(provider)
       } catch (err) {
         console.log(err)
-        setError(
-          err instanceof FirebaseError ? err.message : 'Something went wrong'
-        )
+        setError(getAuthErrorMsg(err))
       }
 
       setIsLoading(false)
@@ -45,11 +43,7 @@ const SignInWithProviders = ({ providers }: SignInWithProvidersProps) => {
           {label}
         </Button>
       ))}
-      {error && (
-        <Text size="sm" color="red">
-          {error}
-        </Text>
-      )}
+      <ErrorMessage>{error}</ErrorMessage>
     </Flex>
   )
 }
