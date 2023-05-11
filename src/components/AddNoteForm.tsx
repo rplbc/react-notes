@@ -36,6 +36,7 @@ const AddNoteForm = () => {
 
     try {
       await dispatch(addNote({ title, content: '' })).unwrap()
+      form.reset()
       close()
     } catch (err) {
       console.log(err)
