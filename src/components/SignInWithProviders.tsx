@@ -1,7 +1,7 @@
-import ErrorMessage from '@/components/ErrorMessage'
+import ResponseMessage from '@/components/ResponseMessage'
 import { useLoadingContext } from '@/contexts/Loading'
 import { signInWithProvider, type AuthProviders } from '@/firebase/auth'
-import { getAuthErrorMsg } from '@/utils'
+import { getAuthErrorMsg, type ResponseMsg } from '@/utils'
 import { Button, Flex } from '@mantine/core'
 import { useCallback, useState } from 'react'
 
@@ -10,19 +10,22 @@ export type SignInWithProvidersProps = {
 }
 
 const SignInWithProviders = ({ providers }: SignInWithProvidersProps) => {
-  const [error, setError] = useState('')
   const { isLoading, setIsLoading } = useLoadingContext()
+  const [res, setRes] = useState<ResponseMsg | null>(null)
 
   const signIn = useCallback(
     async (provider: AuthProviders) => {
-      setError('')
+      setRes(null)
       setIsLoading(true)
 
       try {
         await signInWithProvider(provider)
       } catch (err) {
         console.log(err)
-        setError(getAuthErrorMsg(err))
+        setRes({
+          status: 'error',
+          msg: getAuthErrorMsg(err),
+        })
       }
 
       setIsLoading(false)
@@ -43,7 +46,8 @@ const SignInWithProviders = ({ providers }: SignInWithProvidersProps) => {
           {label}
         </Button>
       ))}
-      <ErrorMessage>{error}</ErrorMessage>
+
+      {res && <ResponseMessage {...res} />}
     </Flex>
   )
 }
