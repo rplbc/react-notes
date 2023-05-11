@@ -33,7 +33,7 @@ const AddNoteForm = () => {
     setError('')
 
     try {
-      await dispatch(addNote({ title, content: '' }))
+      await dispatch(addNote({ title, content: '' })).unwrap()
       close()
     } catch (err) {
       console.log(err)

@@ -34,7 +34,11 @@ const NoteCard = ({ id, title }: { id: string; title: string }) => {
             disabled={isDeleting}
             onClick={async () => {
               setIsDeleting(true)
-              await dispatch(removeNote(id))
+              try {
+                await dispatch(removeNote(id)).unwrap()
+              } catch (err) {
+                console.log(err)
+              }
               setIsDeleting(false)
             }}
           >

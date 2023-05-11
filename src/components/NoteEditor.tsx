@@ -36,10 +36,7 @@ const NoteEditor = ({
           onClick={async () => {
             try {
               const content = editor?.getHTML() || ''
-              const res = await dispatch(
-                updateNote({ id, content, title })
-              ).unwrap()
-              console.log(res)
+              await dispatch(updateNote({ id, content, title })).unwrap()
             } catch (err) {
               console.log(err)
             }
