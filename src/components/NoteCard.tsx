@@ -1,5 +1,5 @@
 import { useAppDispatch } from '@/store/hooks'
-import { removeNote } from '@/store/slices/notes'
+import { deleteNote } from '@/store/slices/notes'
 import { pagePath } from '@/utils'
 import { ActionIcon, Anchor, Card, Flex, Group, Title } from '@mantine/core'
 import { IconEdit, IconTrash } from '@tabler/icons-react'
@@ -35,7 +35,7 @@ const NoteCard = ({ id, title }: { id: string; title: string }) => {
             onClick={async () => {
               setIsDeleting(true)
               try {
-                await dispatch(removeNote(id)).unwrap()
+                await dispatch(deleteNote(id)).unwrap()
               } catch (err) {
                 console.log(err)
               }
