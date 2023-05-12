@@ -1,7 +1,6 @@
-import { setDisplayName } from '@/firebase/api'
-import { signOut as _signOut } from '@/firebase/auth'
+import { auth } from '@/firebase'
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import type { User } from 'firebase/auth'
+import { User, signOut as _signOut, updateProfile } from 'firebase/auth'
 
 export const AUTH_UNAUTHORIZED_STATUS = 'unauthorized' as const
 export const AUTH_AUTHORIZED_STATUS = 'authorized' as const
@@ -19,12 +18,18 @@ export type UserState = UserData & { status: UserAuthStatus }
 export const updateDisplayName = createAsyncThunk(
   'user/updateDisplayName',
   async (displayName: User['displayName']) => {
-    await setDisplayName(displayName)
+    if (!auth.currentUser) throw new Error('Unauthorized')
+
+    await updateProfile(auth.currentUser, {
+      displayName,
+      photoURL: auth.currentUser.photoURL,
+    })
+
     return displayName
   }
 )
 
-export const signOut = createAsyncThunk('user/signOut', _signOut)
+export const signOut = createAsyncThunk('user/signOut', () => _signOut(auth))
 
 const initialState: UserState = {
   uid: '',

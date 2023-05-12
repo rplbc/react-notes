@@ -1,15 +1,36 @@
 import NoteEditor from '@/components/NoteEditor'
 import Page from '@/components/Page'
-import { pagePath } from '@/routes'
-import { useAppSelector } from '@/store/hooks'
-import { Anchor, Button, Title } from '@mantine/core'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { getNote } from '@/store/slices/notes'
+import { pagePath } from '@/utils'
+import { Anchor, Button, LoadingOverlay, Title } from '@mantine/core'
+import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
 const EditNotePage = () => {
+  const dispatch = useAppDispatch()
   const { id } = useParams()
   const note = useAppSelector((s) =>
-    s.notes.find(({ id: noteId }) => id === noteId)
+    s.notes.items.find(({ id: noteId }) => id === noteId)
   )
+  const [hasChecked, setHasChecked] = useState(!!note)
+
+  useEffect(() => {
+    const getInitialNote = async (id: string) => {
+      try {
+        await dispatch(getNote(id)).unwrap()
+      } catch (err) {
+        console.log(err)
+      }
+
+      setHasChecked(true)
+    }
+
+    if (id) getInitialNote(id)
+    else setHasChecked(true)
+  }, [id, dispatch])
+
+  if (!hasChecked) return <LoadingOverlay visible />
 
   if (!note)
     return (
@@ -21,15 +42,13 @@ const EditNotePage = () => {
       </Page>
     )
 
-  const { title, content } = note
-
   return (
-    <Page title={title}>
+    <Page title={note.title}>
       <Anchor component={Link} to={pagePath.home}>
         ← Go back
       </Anchor>
       <Title mt={20} mb={30}>
-        {title}
+        {note.title}
       </Title>
       <NoteEditor {...note} />
     </Page>

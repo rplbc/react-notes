@@ -1,9 +1,7 @@
-import ErrorMessage from '@/components/ErrorMessage'
-import SuccessMessage from '@/components/SuccessMessage'
+import ResponseMessage from '@/components/ResponseMessage'
 import { useLoadingContext } from '@/contexts/Loading'
 import { sendPasswordResetEmail } from '@/firebase/auth'
-import { pagePath } from '@/routes'
-import { getAuthErrorMsg } from '@/utils'
+import { ResponseMsg, getAuthErrorMsg, pagePath } from '@/utils'
 import { Anchor, Button, Flex, Group, TextInput } from '@mantine/core'
 import { useForm, zodResolver } from '@mantine/form'
 import { useState } from 'react'
@@ -19,9 +17,8 @@ const initialValues: z.infer<typeof validationSchema> = {
 }
 
 const ResetPasswordForm = () => {
-  const [error, setError] = useState('')
-  const [responseMessage, setResponseMessage] = useState('')
   const { isLoading, setIsLoading } = useLoadingContext()
+  const [res, setRes] = useState<ResponseMsg | null>(null)
 
   const form = useForm({
     initialValues,
@@ -30,17 +27,18 @@ const ResetPasswordForm = () => {
   })
 
   const handleSubmit = form.onSubmit(async ({ email }) => {
-    setError('')
-    setResponseMessage('')
+    setRes(null)
     setIsLoading(true)
 
     try {
       await sendPasswordResetEmail(email)
-      setResponseMessage('Password reset email sent')
       form.reset()
     } catch (err) {
       console.log(err)
-      setError(getAuthErrorMsg(err))
+      setRes({
+        status: 'error',
+        msg: getAuthErrorMsg(err),
+      })
     }
 
     setIsLoading(false)
@@ -59,8 +57,7 @@ const ResetPasswordForm = () => {
           {...form.getInputProps('email')}
         />
 
-        <ErrorMessage>{error}</ErrorMessage>
-        <SuccessMessage>{responseMessage}</SuccessMessage>
+        {res && <ResponseMessage {...res} />}
 
         <Group position="apart" mt="sm">
           <Anchor component={Link} to={pagePath.signIn} size="sm">

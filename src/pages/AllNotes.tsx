@@ -10,16 +10,20 @@ import { useEffect, useMemo, useState } from 'react'
 
 const AllNotesPage = () => {
   const dispatch = useAppDispatch()
-  const notes = useAppSelector((s) => s.notes)
+  const notes = useAppSelector((s) => s.notes.items)
   const [search, setSearch] = useState('')
   const [debounced] = useDebouncedValue(search, 200)
   const filteredNotes = useMemo(
-    () => notes.filter((i) => i.title.includes(debounced)),
+    () =>
+      notes.filter(({ title }) =>
+        title.toLowerCase().includes(debounced.toLowerCase())
+      ),
     [debounced, notes]
   )
 
   useEffect(() => {
-    dispatch(getNotes())
+    const promise = dispatch(getNotes())
+    return () => promise.abort()
   }, [dispatch])
 
   return (

@@ -1,8 +1,7 @@
-import ErrorMessage from '@/components/ErrorMessage'
+import ResponseMessage from '@/components/ResponseMessage'
 import { useLoadingContext } from '@/contexts/Loading'
 import { signInWithCredentials } from '@/firebase/auth'
-import { pagePath } from '@/routes'
-import { getAuthErrorMsg } from '@/utils'
+import { getAuthErrorMsg, pagePath, type ResponseMsg } from '@/utils'
 import {
   Anchor,
   Button,
@@ -27,8 +26,8 @@ const initialValues: z.infer<typeof validationSchema> = {
 }
 
 const SignInForm = () => {
-  const [error, setError] = useState('')
   const { isLoading, setIsLoading } = useLoadingContext()
+  const [res, setRes] = useState<ResponseMsg | null>(null)
 
   const form = useForm({
     initialValues,
@@ -37,14 +36,17 @@ const SignInForm = () => {
   })
 
   const handleSubmit = form.onSubmit(async ({ email, password }) => {
-    setError('')
+    setRes(null)
     setIsLoading(true)
 
     try {
       await signInWithCredentials(email, password)
     } catch (err) {
       console.log(err)
-      setError(getAuthErrorMsg(err))
+      setRes({
+        status: 'error',
+        msg: getAuthErrorMsg(err),
+      })
     }
 
     setIsLoading(false)
@@ -70,7 +72,7 @@ const SignInForm = () => {
           {...form.getInputProps('password')}
         />
 
-        <ErrorMessage>{error}</ErrorMessage>
+        {res && <ResponseMessage {...res} />}
 
         <Group position="apart" mt="sm">
           <Anchor component={Link} to={pagePath.resetPassword} size="sm">

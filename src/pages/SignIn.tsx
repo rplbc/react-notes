@@ -4,7 +4,7 @@ import SignInWithProviders, {
   type SignInWithProvidersProps,
 } from '@/components/SignInWithProviders'
 import SingleFormWrapper from '@/components/SingleFormWrapper'
-import { pagePath } from '@/routes'
+import { pagePath } from '@/utils'
 import { Anchor, Divider, Text } from '@mantine/core'
 import { Link } from 'react-router-dom'
 
@@ -27,7 +27,7 @@ const SignInPage = () => {
         <Divider label="Or sign in with" labelPosition="center" />
         <SignInWithProviders providers={providers} />
         <Text color="dimmed" size="sm" align="center">
-          Do not have an account yet?{' '}
+          Don't have an account yet?{' '}
           <Anchor component={Link} to={pagePath.signUp}>
             Sign up
           </Anchor>

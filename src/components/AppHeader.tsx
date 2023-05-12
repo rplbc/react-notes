@@ -1,6 +1,6 @@
-import { signOut } from '@/firebase/auth'
-import { pagePath } from '@/routes'
-import { useAppSelector } from '@/store/hooks'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { signOut } from '@/store/slices/user'
+import { pagePath } from '@/utils'
 import {
   Anchor,
   Avatar,
@@ -19,6 +19,7 @@ import {
 import { Link } from 'react-router-dom'
 
 const AppHeader = () => {
+  const dispatch = useAppDispatch()
   const user = useAppSelector((s) => s.user)
 
   return (
@@ -69,7 +70,10 @@ const AppHeader = () => {
             >
               Profile
             </Menu.Item>
-            <Menu.Item onClick={signOut} icon={<IconLogout size="1rem" />}>
+            <Menu.Item
+              icon={<IconLogout size="1rem" />}
+              onClick={() => dispatch(signOut())}
+            >
               Logout
             </Menu.Item>
           </Menu.Dropdown>

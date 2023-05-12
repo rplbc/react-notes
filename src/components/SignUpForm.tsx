@@ -1,7 +1,7 @@
-import ErrorMessage from '@/components/ErrorMessage'
+import ResponseMessage from '@/components/ResponseMessage'
 import { useLoadingContext } from '@/contexts/Loading'
 import { signUpWithCredentials } from '@/firebase/auth'
-import { getAuthErrorMsg } from '@/utils'
+import { getAuthErrorMsg, type ResponseMsg } from '@/utils'
 import { Button, Flex, PasswordInput, TextInput } from '@mantine/core'
 import { useForm, zodResolver } from '@mantine/form'
 import { useDisclosure } from '@mantine/hooks'
@@ -29,8 +29,8 @@ const initialValues: z.infer<typeof validationSchema> = {
 }
 
 const SignUpForm = () => {
-  const [error, setError] = useState('')
   const { isLoading, setIsLoading } = useLoadingContext()
+  const [res, setRes] = useState<ResponseMsg | null>(null)
   const [isPasswordVisible, { toggle: toggleIsPasswordVisible }] =
     useDisclosure(false)
 
@@ -41,14 +41,17 @@ const SignUpForm = () => {
   })
 
   const handleSubmit = form.onSubmit(async ({ email, password }) => {
-    setError('')
+    setRes(null)
     setIsLoading(true)
 
     try {
       await signUpWithCredentials(email, password)
     } catch (err) {
       console.log(err)
-      setError(getAuthErrorMsg(err))
+      setRes({
+        status: 'error',
+        msg: getAuthErrorMsg(err),
+      })
     }
 
     setIsLoading(false)
@@ -86,7 +89,7 @@ const SignUpForm = () => {
           {...form.getInputProps('confirmPassword')}
         />
 
-        <ErrorMessage>{error}</ErrorMessage>
+        {res && <ResponseMessage {...res} />}
 
         <Button type="submit" mt="sm" disabled={isLoading}>
           Sign up

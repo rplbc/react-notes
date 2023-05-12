@@ -1,6 +1,9 @@
+import ResponseMessage from '@/components/ResponseMessage'
+import { useLoadingContext } from '@/contexts/Loading'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { updateDisplayName } from '@/store/slices/user'
-import { Button, Flex, Group, Text, TextInput } from '@mantine/core'
+import { type ResponseMsg } from '@/utils'
+import { Button, Flex, Group, TextInput } from '@mantine/core'
 import { useForm, zodResolver } from '@mantine/form'
 import { useState } from 'react'
 import { z } from 'zod'
@@ -14,10 +17,9 @@ type ProfileFormValues = z.infer<typeof validationSchema>
 const ProfileForm = () => {
   const dispatch = useAppDispatch()
   const { displayName, email } = useAppSelector((s) => s.user)
+  const { isLoading, setIsLoading } = useLoadingContext()
 
-  const [isLoading, setIsLoading] = useState(false)
-  const [responseMessage, setResponseMessage] = useState('')
-  const [error, setError] = useState('')
+  const [res, setRes] = useState<ResponseMsg | null>(null)
 
   const form = useForm<ProfileFormValues>({
     initialValues: {
@@ -28,29 +30,28 @@ const ProfileForm = () => {
   })
 
   const handleSubmit = form.onSubmit(async ({ displayName }) => {
+    setRes(null)
     setIsLoading(true)
-    setError('')
-    setResponseMessage('')
 
     try {
       await dispatch(updateDisplayName(displayName.trim())).unwrap()
-      setResponseMessage('Saved')
+      setRes({
+        status: 'success',
+        msg: 'Saved',
+      })
     } catch (err) {
       console.log(err)
-      setError('Something went wrong, please try again')
+      setRes({
+        status: 'error',
+        msg: 'Something went wrong, please try again',
+      })
     }
 
     setIsLoading(false)
   })
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      onFocus={() => {
-        setError('')
-        setResponseMessage('')
-      }}
-    >
+    <form onSubmit={handleSubmit} onFocus={() => setRes(null)}>
       <Flex direction="column" gap="xs">
         <TextInput label="Email" defaultValue={email || ''} readOnly disabled />
         <TextInput
@@ -59,16 +60,7 @@ const ProfileForm = () => {
           disabled={isLoading}
           {...form.getInputProps('displayName')}
         />
-        {error && (
-          <Text size="sm" color="red">
-            {error}
-          </Text>
-        )}
-        {responseMessage && (
-          <Text size="sm" color="green">
-            {responseMessage}
-          </Text>
-        )}
+        {res && <ResponseMessage {...res} />}
         <Group mt="sm">
           <Button
             type="submit"
