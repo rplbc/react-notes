@@ -33,6 +33,10 @@ const ResetPasswordForm = () => {
     try {
       await sendPasswordResetEmail(email)
       form.reset()
+      setRes({
+        status: 'success',
+        msg: 'Email sent',
+      })
     } catch (err) {
       console.log(err)
       setRes({
