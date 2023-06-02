@@ -37,7 +37,6 @@ const SignUpForm = () => {
   const form = useForm({
     initialValues,
     validate: zodResolver(validationSchema),
-    validateInputOnBlur: true,
   })
 
   const handleSubmit = form.onSubmit(async ({ email, password }) => {

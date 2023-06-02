@@ -27,7 +27,6 @@ const AddNoteForm = () => {
       title: '',
     },
     validate: zodResolver(validationSchema),
-    validateInputOnBlur: true,
   })
 
   const handleSubmit = form.onSubmit(async ({ title }) => {

@@ -26,7 +26,6 @@ const ProfileForm = () => {
       displayName: displayName || '',
     },
     validate: zodResolver(validationSchema),
-    validateInputOnBlur: true,
   })
 
   const handleSubmit = form.onSubmit(async ({ displayName }) => {
