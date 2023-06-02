@@ -1,6 +1,5 @@
 import ResponseMessage from '@/components/ResponseMessage'
-import { useLoadingContext } from '@/contexts/Loading'
-import { useAppDispatch } from '@/store/hooks'
+import { useAppDispatch, useLoadingContext } from '@/hooks'
 import { addNote } from '@/store/slices/notes'
 import { type ResponseMsg } from '@/utils'
 import { Button, Group, Modal, TextInput } from '@mantine/core'
@@ -27,7 +26,6 @@ const AddNoteForm = () => {
       title: '',
     },
     validate: zodResolver(validationSchema),
-    validateInputOnBlur: true,
   })
 
   const handleSubmit = form.onSubmit(async ({ title }) => {

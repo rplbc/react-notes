@@ -1,6 +1,6 @@
 import NoteEditor from '@/components/NoteEditor'
 import Page from '@/components/Page'
-import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { useAppDispatch, useAppSelector } from '@/hooks'
 import { getNote } from '@/store/slices/notes'
 import { pagePath } from '@/utils'
 import { Anchor, Button, LoadingOverlay, Title } from '@mantine/core'

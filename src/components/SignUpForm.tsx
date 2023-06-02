@@ -1,6 +1,6 @@
 import ResponseMessage from '@/components/ResponseMessage'
-import { useLoadingContext } from '@/contexts/Loading'
 import { signUpWithCredentials } from '@/firebase/auth'
+import { useLoadingContext } from '@/hooks'
 import { getAuthErrorMsg, type ResponseMsg } from '@/utils'
 import { Button, Flex, PasswordInput, TextInput } from '@mantine/core'
 import { useForm, zodResolver } from '@mantine/form'
@@ -37,7 +37,6 @@ const SignUpForm = () => {
   const form = useForm({
     initialValues,
     validate: zodResolver(validationSchema),
-    validateInputOnBlur: true,
   })
 
   const handleSubmit = form.onSubmit(async ({ email, password }) => {

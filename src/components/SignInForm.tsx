@@ -1,6 +1,6 @@
 import ResponseMessage from '@/components/ResponseMessage'
-import { useLoadingContext } from '@/contexts/Loading'
 import { signInWithCredentials } from '@/firebase/auth'
+import { useLoadingContext } from '@/hooks'
 import { getAuthErrorMsg, pagePath, type ResponseMsg } from '@/utils'
 import {
   Anchor,
@@ -32,7 +32,6 @@ const SignInForm = () => {
   const form = useForm({
     initialValues,
     validate: zodResolver(validationSchema),
-    validateInputOnBlur: true,
   })
 
   const handleSubmit = form.onSubmit(async ({ email, password }) => {

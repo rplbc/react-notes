@@ -1,7 +1,7 @@
 import AddNoteForm from '@/components/AddNoteForm'
 import NoteCard from '@/components/NoteCard'
 import Page from '@/components/Page'
-import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { useAppDispatch, useAppSelector } from '@/hooks'
 import { getNotes } from '@/store/slices/notes'
 import { Divider, Group, SimpleGrid, TextInput, Title } from '@mantine/core'
 import { useDebouncedValue } from '@mantine/hooks'
