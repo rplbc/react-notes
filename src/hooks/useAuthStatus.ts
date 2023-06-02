@@ -1,4 +1,4 @@
-import { useAppSelector } from '@/store/hooks'
+import { useAppSelector } from '@/hooks'
 import {
   AUTH_AUTHORIZED_STATUS,
   AUTH_LOADING_STATUS,

@@ -1,6 +1,5 @@
 import ResponseMessage from '@/components/ResponseMessage'
-import { useLoadingContext } from '@/contexts/Loading'
-import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { useAppDispatch, useAppSelector, useLoadingContext } from '@/hooks'
 import { updateDisplayName } from '@/store/slices/user'
 import { type ResponseMsg } from '@/utils'
 import { Button, Flex, Group, TextInput } from '@mantine/core'

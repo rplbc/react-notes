@@ -1,6 +1,6 @@
 import AppHeader from '@/components/AppHeader'
-import { LoadingContext } from '@/contexts/Loading'
-import useAuthStatus from '@/hooks/useAuthStatus'
+import { LoadingContext } from '@/contexts'
+import { useAuthStatus } from '@/hooks'
 import { Container } from '@mantine/core'
 import { useState } from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'

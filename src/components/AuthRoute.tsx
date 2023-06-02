@@ -1,5 +1,5 @@
-import { LoadingContext } from '@/contexts/Loading'
-import useAuthStatus from '@/hooks/useAuthStatus'
+import { LoadingContext } from '@/contexts'
+import { useAuthStatus } from '@/hooks'
 import { useState } from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 

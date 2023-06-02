@@ -1,6 +1,6 @@
 import ResponseMessage from '@/components/ResponseMessage'
-import { useLoadingContext } from '@/contexts/Loading'
 import { signUpWithCredentials } from '@/firebase/auth'
+import { useLoadingContext } from '@/hooks'
 import { getAuthErrorMsg, type ResponseMsg } from '@/utils'
 import { Button, Flex, PasswordInput, TextInput } from '@mantine/core'
 import { useForm, zodResolver } from '@mantine/form'

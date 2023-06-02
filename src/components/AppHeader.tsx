@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { useAppDispatch, useAppSelector } from '@/hooks'
 import { signOut } from '@/store/slices/user'
 import { pagePath } from '@/utils'
 import {
