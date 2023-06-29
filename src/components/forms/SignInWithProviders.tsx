@@ -14,22 +14,25 @@ const SignInWithProviders = ({ providers }: SignInWithProvidersProps) => {
   const { isLoading, setIsLoading } = useLoadingContext()
   const [res, setRes] = useState<ResponseMsg | null>(null)
 
-  const signIn = useCallback(async (provider: AuthProviders) => {
-    setRes(null)
-    setIsLoading(true)
+  const signIn = useCallback(
+    async (provider: AuthProviders) => {
+      setRes(null)
+      setIsLoading(true)
 
-    try {
-      await signInWithProvider(provider)
-    } catch (err) {
-      console.log(err)
-      setRes({
-        status: 'error',
-        msg: getAuthErrorMsg(err),
-      })
-    }
+      try {
+        await signInWithProvider(provider)
+      } catch (err) {
+        console.log(err)
+        setRes({
+          status: 'error',
+          msg: getAuthErrorMsg(err),
+        })
+      }
 
-    setIsLoading(false)
-  }, [])
+      setIsLoading(false)
+    },
+    [setIsLoading]
+  )
 
   return (
     <Flex gap="xs" wrap="wrap">
