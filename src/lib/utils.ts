@@ -14,6 +14,7 @@ export const authErrors = {
   'auth/account-exists-with-different-credential':
     'Account exists with different credential',
   'auth/wrong-password': 'Invalid password',
+  'auth/email-already-in-use': 'Emailer already in use',
 }
 
 export const getAuthErrorMsg = (err: unknown): string => {
@@ -24,4 +25,13 @@ export const getAuthErrorMsg = (err: unknown): string => {
   }
 
   return msg
+}
+
+export const pagePath = {
+  home: '/',
+  note: (id: string) => `/note/${id}`,
+  profile: '/profile',
+  signIn: '/signin',
+  signUp: '/signup',
+  resetPassword: '/reset-password',
 }

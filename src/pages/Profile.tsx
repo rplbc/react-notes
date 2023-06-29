@@ -1,6 +1,6 @@
 import Page from '@/components/Page'
-import ProfileForm from '@/components/ProfileForm'
-import { pagePath } from '@/utils'
+import ProfileForm from '@/components/forms/ProfileForm'
+import { pagePath } from '@/lib/utils'
 import { Anchor, Title } from '@mantine/core'
 import { Link } from 'react-router-dom'
 

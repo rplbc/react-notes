@@ -1,23 +1,11 @@
 import Page from '@/components/Page'
-import SignInForm from '@/components/SignInForm'
-import SignInWithProviders, {
-  type SignInWithProvidersProps,
-} from '@/components/SignInWithProviders'
-import SingleFormWrapper from '@/components/SingleFormWrapper'
-import { pagePath } from '@/utils'
+import SignInForm from '@/components/forms/SignInForm'
+import SignInWithProviders from '@/components/forms/SignInWithProviders'
+import SingleFormWrapper from '@/components/layouts/SingleFormWrapper'
+import { providers } from '@/lib/firebase/providers'
+import { pagePath } from '@/lib/utils'
 import { Anchor, Divider, Text } from '@mantine/core'
 import { Link } from 'react-router-dom'
-
-const providers: SignInWithProvidersProps['providers'] = [
-  {
-    provider: 'google',
-    label: 'Google',
-  },
-  {
-    provider: 'github',
-    label: 'GitHub',
-  },
-]
 
 const SignInPage = () => {
   return (

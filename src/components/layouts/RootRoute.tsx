@@ -1,5 +1,5 @@
-import { auth } from '@/firebase'
 import { useAppDispatch, useAuthStatus } from '@/hooks'
+import { auth } from '@/lib/firebase'
 import { setUser } from '@/store/slices/user'
 import { LoadingOverlay } from '@mantine/core'
 import { onAuthStateChanged } from 'firebase/auth'

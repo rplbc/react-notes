@@ -1,16 +1,11 @@
-import { type ResponseMsg } from '@/utils'
+import type { ResponseMsg } from '@/types'
 import { type TextProps } from '@mantine/core'
 import ErrorMessage from './ErrorMessage'
 import SuccessMessage from './SuccessMessage'
 
-type ResponseMsgOwnProps = ResponseMsg
-type ResponseMsgProps = ResponseMsgOwnProps &
-  Omit<TextProps, keyof ResponseMsgOwnProps>
+type ResponseMsgProps = ResponseMsg & Omit<TextProps, keyof ResponseMsg>
 
-const messageComponents: Record<
-  ResponseMsgOwnProps['status'],
-  React.ElementType
-> = {
+const messageComponents: Record<ResponseMsg['status'], React.ElementType> = {
   success: SuccessMessage,
   error: ErrorMessage,
 }

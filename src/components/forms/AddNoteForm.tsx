@@ -1,19 +1,13 @@
 import ResponseMessage from '@/components/ResponseMessage'
 import { useAppDispatch, useLoadingContext } from '@/hooks'
+import { addNoteScheme, type AddNoteScheme } from '@/lib/validation'
 import { addNote } from '@/store/slices/notes'
-import { type ResponseMsg } from '@/utils'
+import type { ResponseMsg } from '@/types'
 import { Button, Group, Modal, TextInput } from '@mantine/core'
 import { useForm, zodResolver } from '@mantine/form'
 import { useDisclosure } from '@mantine/hooks'
 import { IconPlus } from '@tabler/icons-react'
 import { useState } from 'react'
-import { z } from 'zod'
-
-const validationSchema = z.object({
-  title: z.string().min(3, 'Min 3 characters').max(30, 'Max 30 characters'),
-})
-
-type NewNoteFormValues = z.infer<typeof validationSchema>
 
 const AddNoteForm = () => {
   const [opened, { open, close }] = useDisclosure(false)
@@ -21,11 +15,11 @@ const AddNoteForm = () => {
   const { isLoading, setIsLoading } = useLoadingContext()
   const [res, setRes] = useState<ResponseMsg | null>(null)
 
-  const form = useForm<NewNoteFormValues>({
+  const form = useForm<AddNoteScheme>({
     initialValues: {
       title: '',
     },
-    validate: zodResolver(validationSchema),
+    validate: zodResolver(addNoteScheme),
   })
 
   const handleSubmit = form.onSubmit(async ({ title }) => {

@@ -1,41 +1,39 @@
 import ResponseMessage from '@/components/ResponseMessage'
-import { sendPasswordResetEmail } from '@/firebase/auth'
 import { useLoadingContext } from '@/hooks'
-import { ResponseMsg, getAuthErrorMsg, pagePath } from '@/utils'
-import { Anchor, Button, Flex, Group, TextInput } from '@mantine/core'
+import { signInWithCredentials } from '@/lib/firebase/auth'
+import { getAuthErrorMsg, pagePath } from '@/lib/utils'
+import { signInSchema, type SignInSchema } from '@/lib/validation'
+import type { ResponseMsg } from '@/types'
+import {
+  Anchor,
+  Button,
+  Flex,
+  Group,
+  PasswordInput,
+  TextInput,
+} from '@mantine/core'
 import { useForm, zodResolver } from '@mantine/form'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { z } from 'zod'
 
-const validationSchema = z.object({
-  email: z.string().email(),
-})
-
-const initialValues: z.infer<typeof validationSchema> = {
-  email: '',
-}
-
-const ResetPasswordForm = () => {
+const SignInForm = () => {
   const { isLoading, setIsLoading } = useLoadingContext()
   const [res, setRes] = useState<ResponseMsg | null>(null)
 
-  const form = useForm({
-    initialValues,
-    validate: zodResolver(validationSchema),
+  const form = useForm<SignInSchema>({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validate: zodResolver(signInSchema),
   })
 
-  const handleSubmit = form.onSubmit(async ({ email }) => {
+  const handleSubmit = form.onSubmit(async ({ email, password }) => {
     setRes(null)
     setIsLoading(true)
 
     try {
-      await sendPasswordResetEmail(email)
-      form.reset()
-      setRes({
-        status: 'success',
-        msg: 'Email sent',
-      })
+      await signInWithCredentials(email, password)
     } catch (err) {
       console.log(err)
       setRes({
@@ -52,7 +50,6 @@ const ResetPasswordForm = () => {
       <Flex direction="column" gap="xs">
         <TextInput
           label="Email"
-          description="Enter your email to get a reset link"
           placeholder="your@mail.com"
           inputMode="email"
           disabled={isLoading}
@@ -60,14 +57,22 @@ const ResetPasswordForm = () => {
           {...form.getInputProps('email')}
         />
 
+        <PasswordInput
+          label="Password"
+          placeholder="Your password"
+          disabled={isLoading}
+          withAsterisk
+          {...form.getInputProps('password')}
+        />
+
         {res && <ResponseMessage {...res} />}
 
         <Group position="apart" mt="sm">
-          <Anchor component={Link} to={pagePath.signIn} size="sm">
-            ← Go back
+          <Anchor component={Link} to={pagePath.resetPassword} size="sm">
+            Forgot password?
           </Anchor>
           <Button type="submit" disabled={isLoading}>
-            Reset password
+            Sign in
           </Button>
         </Group>
       </Flex>
@@ -75,4 +80,4 @@ const ResetPasswordForm = () => {
   )
 }
 
-export default ResetPasswordForm
+export default SignInForm
