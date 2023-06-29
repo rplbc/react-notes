@@ -1,7 +1,7 @@
 import ResponseMessage from '@/components/ResponseMessage'
 import { useAppDispatch, useLoadingContext } from '@/hooks'
 import { addNote } from '@/store/slices/notes'
-import { type ResponseMsg } from '@/utils'
+import type { ResponseMsg } from '@/types'
 import { Button, Group, Modal, TextInput } from '@mantine/core'
 import { useForm, zodResolver } from '@mantine/form'
 import { useDisclosure } from '@mantine/hooks'

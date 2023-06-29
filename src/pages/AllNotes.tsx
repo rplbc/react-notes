@@ -1,5 +1,5 @@
 import AddNoteForm from '@/components/forms/AddNoteForm'
-import NoteCard from '@/components/NoteCard'
+import NoteCard from '@/components/note/NoteCard'
 import Page from '@/components/Page'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import { getNotes } from '@/store/slices/notes'

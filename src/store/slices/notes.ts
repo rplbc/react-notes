@@ -1,4 +1,4 @@
-import { auth, firestore } from '@/firebase'
+import { auth, firestore } from '@/lib/firebase'
 import { signOut } from '@/store/slices/user'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import {

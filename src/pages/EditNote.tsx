@@ -1,4 +1,4 @@
-import NoteEditor from '@/components/NoteEditor'
+import NoteEditor from '@/components/note/NoteEditor'
 import Page from '@/components/Page'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import { getNote } from '@/store/slices/notes'

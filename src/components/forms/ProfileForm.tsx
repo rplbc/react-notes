@@ -1,7 +1,7 @@
 import ResponseMessage from '@/components/ResponseMessage'
 import { useAppDispatch, useAppSelector, useLoadingContext } from '@/hooks'
 import { updateDisplayName } from '@/store/slices/user'
-import { type ResponseMsg } from '@/utils'
+import type { ResponseMsg } from '@/types'
 import { Button, Flex, Group, TextInput } from '@mantine/core'
 import { useForm, zodResolver } from '@mantine/form'
 import { useState } from 'react'

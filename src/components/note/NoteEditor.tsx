@@ -1,7 +1,7 @@
 import ResponseMessage from '@/components/ResponseMessage'
 import { useAppDispatch, useLoadingContext } from '@/hooks'
 import { Note, updateNote } from '@/store/slices/notes'
-import { type ResponseMsg } from '@/utils'
+import { ResponseMsg } from '@/types'
 import { Button } from '@mantine/core'
 import { RichTextEditor } from '@mantine/tiptap'
 import Placeholder from '@tiptap/extension-placeholder'

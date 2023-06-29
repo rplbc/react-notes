@@ -1,4 +1,4 @@
-import { auth } from '@/firebase'
+import { auth } from '@/lib/firebase'
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { User, signOut as _signOut, updateProfile } from 'firebase/auth'
 
