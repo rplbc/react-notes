@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/hooks'
+import { pagePath } from '@/lib/utils'
 import { signOut } from '@/store/slices/user'
-import { pagePath } from '@/utils'
 import {
   Anchor,
   Avatar,

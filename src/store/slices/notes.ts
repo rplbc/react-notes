@@ -1,5 +1,6 @@
 import { auth, firestore } from '@/lib/firebase'
 import { signOut } from '@/store/slices/user'
+import type { Note } from '@/types'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import {
   addDoc,
@@ -14,17 +15,9 @@ import {
   updateDoc,
 } from 'firebase/firestore'
 
-export type Note = {
-  id: string
-  title: string
-  content: string
-}
-
-export type Notes = Note[]
-
 type NotesState = {
   status: 'idle' | 'pending' | 'fulfilled' | 'rejected'
-  items: Notes
+  items: Note[]
 }
 
 export const getNotes = createAsyncThunk('notes/get', async () => {

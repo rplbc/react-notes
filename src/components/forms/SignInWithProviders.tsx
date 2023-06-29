@@ -1,8 +1,8 @@
 import ResponseMessage from '@/components/ResponseMessage'
 import { useLoadingContext } from '@/hooks'
 import { signInWithProvider, type AuthProviders } from '@/lib/firebase/auth'
+import { getAuthErrorMsg } from '@/lib/utils'
 import type { ResponseMsg } from '@/types'
-import { getAuthErrorMsg } from '@/utils'
 import { Button, Flex } from '@mantine/core'
 import { useCallback, useState } from 'react'
 

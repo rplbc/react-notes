@@ -3,7 +3,7 @@ import SignInForm from '@/components/forms/SignInForm'
 import SignInWithProviders from '@/components/forms/SignInWithProviders'
 import SingleFormWrapper from '@/components/layouts/SingleFormWrapper'
 import { providers } from '@/lib/firebase/providers'
-import { pagePath } from '@/utils'
+import { pagePath } from '@/lib/utils'
 import { Anchor, Divider, Text } from '@mantine/core'
 import { Link } from 'react-router-dom'
 

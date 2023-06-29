@@ -1,8 +1,8 @@
 import ResponseMessage from '@/components/ResponseMessage'
 import { useLoadingContext } from '@/hooks'
 import { signInWithCredentials } from '@/lib/firebase/auth'
+import { getAuthErrorMsg, pagePath } from '@/lib/utils'
 import type { ResponseMsg } from '@/types'
-import { getAuthErrorMsg, pagePath } from '@/utils'
 import {
   Anchor,
   Button,

@@ -1,6 +1,7 @@
-import AuthRoute from '@/components/routes/AuthRoute'
-import ProtectedRoute from '@/components/routes/ProtectedRoute'
-import RootRoute from '@/components/routes/RootRoute'
+import AuthRoute from '@/components/layouts/AuthRoute'
+import ProtectedRoute from '@/components/layouts/ProtectedRoute'
+import RootRoute from '@/components/layouts/RootRoute'
+import { pagePath } from '@/lib/utils'
 import AllNotesPage from '@/pages/AllNotes'
 import EditNotePage from '@/pages/EditNote'
 import NotFoundPage from '@/pages/NotFound'
@@ -8,7 +9,6 @@ import ProfilePage from '@/pages/Profile'
 import ResetPasswordPage from '@/pages/ResetPassword'
 import SignInPage from '@/pages/SignIn'
 import SignUpPage from '@/pages/SignUp'
-import { pagePath } from '@/utils'
 import {
   Route,
   createBrowserRouter,

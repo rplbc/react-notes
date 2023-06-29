@@ -1,23 +1,15 @@
 import { auth } from '@/lib/firebase'
+import type { UserData, UserState } from '@/types'
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { User, signOut as _signOut, updateProfile } from 'firebase/auth'
+import { signOut as _signOut, updateProfile } from 'firebase/auth'
 
-export const AUTH_UNAUTHORIZED_STATUS = 'unauthorized' as const
-export const AUTH_AUTHORIZED_STATUS = 'authorized' as const
-export const AUTH_LOADING_STATUS = 'loading' as const
-
-type UserAuthStatus =
-  | typeof AUTH_UNAUTHORIZED_STATUS
-  | typeof AUTH_AUTHORIZED_STATUS
-  | typeof AUTH_LOADING_STATUS
-
-export type UserData = Pick<User, 'uid' | 'email' | 'displayName' | 'photoURL'>
-
-export type UserState = UserData & { status: UserAuthStatus }
+export const AUTH_UNAUTHORIZED_STATUS = 'unauthorized'
+export const AUTH_AUTHORIZED_STATUS = 'authorized'
+export const AUTH_LOADING_STATUS = 'loading'
 
 export const updateDisplayName = createAsyncThunk(
   'user/updateDisplayName',
-  async (displayName: User['displayName']) => {
+  async (displayName: UserData['displayName']) => {
     if (!auth.currentUser) throw new Error('Unauthorized')
 
     await updateProfile(auth.currentUser, {
