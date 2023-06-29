@@ -1,6 +1,6 @@
 import Page from '@/components/Page'
-import ResetPasswordForm from '@/components/ResetPasswordForm'
-import SingleFormWrapper from '@/components/SingleFormWrapper'
+import ResetPasswordForm from '@/components/forms/ResetPasswordForm'
+import SingleFormWrapper from '@/components/layouts/SingleFormWrapper'
 
 const ResetPasswordPage = () => {
   return (

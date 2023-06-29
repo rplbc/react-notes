@@ -1,4 +1,4 @@
-import AddNoteForm from '@/components/AddNoteForm'
+import AddNoteForm from '@/components/forms/AddNoteForm'
 import NoteCard from '@/components/NoteCard'
 import Page from '@/components/Page'
 import { useAppDispatch, useAppSelector } from '@/hooks'
