@@ -2,6 +2,7 @@ import ResponseMessage from '@/components/ResponseMessage'
 import { useLoadingContext } from '@/hooks'
 import { signInWithCredentials } from '@/lib/firebase/auth'
 import { getAuthErrorMsg, pagePath } from '@/lib/utils'
+import { signInSchema, type SignInSchema } from '@/lib/validation'
 import type { ResponseMsg } from '@/types'
 import {
   Anchor,
@@ -14,25 +15,17 @@ import {
 import { useForm, zodResolver } from '@mantine/form'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { z } from 'zod'
-
-const validationSchema = z.object({
-  email: z.string().email(),
-  password: z.string().nonempty('Required'),
-})
-
-const initialValues: z.infer<typeof validationSchema> = {
-  email: '',
-  password: '',
-}
 
 const SignInForm = () => {
   const { isLoading, setIsLoading } = useLoadingContext()
   const [res, setRes] = useState<ResponseMsg | null>(null)
 
-  const form = useForm({
-    initialValues,
-    validate: zodResolver(validationSchema),
+  const form = useForm<SignInSchema>({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validate: zodResolver(signInSchema),
   })
 
   const handleSubmit = form.onSubmit(async ({ email, password }) => {

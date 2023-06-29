@@ -2,28 +2,20 @@ import ResponseMessage from '@/components/ResponseMessage'
 import { useLoadingContext } from '@/hooks'
 import { sendPasswordResetEmail } from '@/lib/firebase/auth'
 import { getAuthErrorMsg, pagePath } from '@/lib/utils'
+import { resetPasswordSchema, type ResetPasswordSchema } from '@/lib/validation'
 import type { ResponseMsg } from '@/types'
 import { Anchor, Button, Flex, Group, TextInput } from '@mantine/core'
 import { useForm, zodResolver } from '@mantine/form'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { z } from 'zod'
-
-const validationSchema = z.object({
-  email: z.string().email(),
-})
-
-const initialValues: z.infer<typeof validationSchema> = {
-  email: '',
-}
 
 const ResetPasswordForm = () => {
   const { isLoading, setIsLoading } = useLoadingContext()
   const [res, setRes] = useState<ResponseMsg | null>(null)
 
-  const form = useForm({
-    initialValues,
-    validate: zodResolver(validationSchema),
+  const form = useForm<ResetPasswordSchema>({
+    initialValues: { email: '' },
+    validate: zodResolver(resetPasswordSchema),
   })
 
   const handleSubmit = form.onSubmit(async ({ email }) => {

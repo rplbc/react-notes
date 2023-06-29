@@ -1,17 +1,11 @@
 import ResponseMessage from '@/components/ResponseMessage'
 import { useAppDispatch, useAppSelector, useLoadingContext } from '@/hooks'
+import { updateProfileScheme, type UpdateProfileScheme } from '@/lib/validation'
 import { updateDisplayName } from '@/store/slices/user'
 import type { ResponseMsg } from '@/types'
 import { Button, Flex, Group, TextInput } from '@mantine/core'
 import { useForm, zodResolver } from '@mantine/form'
 import { useState } from 'react'
-import { z } from 'zod'
-
-const validationSchema = z.object({
-  displayName: z.string().max(30, 'Max 30 characters'),
-})
-
-type ProfileFormValues = z.infer<typeof validationSchema>
 
 const ProfileForm = () => {
   const dispatch = useAppDispatch()
@@ -20,11 +14,11 @@ const ProfileForm = () => {
 
   const [res, setRes] = useState<ResponseMsg | null>(null)
 
-  const form = useForm<ProfileFormValues>({
+  const form = useForm<UpdateProfileScheme>({
     initialValues: {
       displayName: displayName || '',
     },
-    validate: zodResolver(validationSchema),
+    validate: zodResolver(updateProfileScheme),
   })
 
   const handleSubmit = form.onSubmit(async ({ displayName }) => {

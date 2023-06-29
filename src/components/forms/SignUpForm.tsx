@@ -2,32 +2,12 @@ import ResponseMessage from '@/components/ResponseMessage'
 import { useLoadingContext } from '@/hooks'
 import { signUpWithCredentials } from '@/lib/firebase/auth'
 import { getAuthErrorMsg } from '@/lib/utils'
+import { signUpSchema, type SignUpSchema } from '@/lib/validation'
 import type { ResponseMsg } from '@/types'
 import { Button, Flex, PasswordInput, TextInput } from '@mantine/core'
 import { useForm, zodResolver } from '@mantine/form'
 import { useDisclosure } from '@mantine/hooks'
 import { useState } from 'react'
-import { z } from 'zod'
-
-const validationSchema = z
-  .object({
-    email: z.string().email(),
-    password: z
-      .string()
-      .nonempty('Required')
-      .min(6, 'Password should be at least 6 characters'),
-    confirmPassword: z.string().nonempty('Required'),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ['confirmPassword'],
-  })
-
-const initialValues: z.infer<typeof validationSchema> = {
-  email: '',
-  password: '',
-  confirmPassword: '',
-}
 
 const SignUpForm = () => {
   const { isLoading, setIsLoading } = useLoadingContext()
@@ -35,9 +15,13 @@ const SignUpForm = () => {
   const [isPasswordVisible, { toggle: toggleIsPasswordVisible }] =
     useDisclosure(false)
 
-  const form = useForm({
-    initialValues,
-    validate: zodResolver(validationSchema),
+  const form = useForm<SignUpSchema>({
+    initialValues: {
+      email: '',
+      password: '',
+      confirmPassword: '',
+    },
+    validate: zodResolver(signUpSchema),
   })
 
   const handleSubmit = form.onSubmit(async ({ email, password }) => {
